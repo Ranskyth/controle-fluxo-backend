@@ -1,7 +1,6 @@
 import { Router } from "express";
+import { GetProdutos } from "./controllers/produtoController";
 
 export const router = Router();
 
-router.get("/", (req, res) => {
-  res.json({}).status(200);
-});
+router.get("/produtos", GetProdutos);
