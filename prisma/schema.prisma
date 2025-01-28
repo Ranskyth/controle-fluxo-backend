@@ -15,10 +15,10 @@ datasource db {
 
 model Produto {
   id Int @id @default(autoincrement())
-  Titulo String
-  Quantidade Int
-  Preco Float
-  Descricao String?
+  titulo String
+  quantidade Int
+  preco Float
+  descricao String?
   createde_at DateTime @default(now())
   updated_at DateTime @updatedAt
   
