@@ -2,8 +2,14 @@
   "name": "controle-fluxo-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "20"
+  },
   "scripts": {
-    "dev": "tsx --watch --env-file=.env src/index.ts"
+    "dev": "tsx --watch --env-file=.env src/index.ts",
+    "test": "jest --passWithNoTests",
+    "start":"node dist/index.js",
+    "build": "tsup src"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +18,9 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "jest": "^29.7.0",
     "prisma": "^6.2.1",
+    "tsup": "^8.3.6",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   },
