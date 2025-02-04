@@ -11,13 +11,38 @@ export const GetProdutosAll = async (req: Request, res: Response) => {
   res.status(200).json(request);
 };
 
+export const GetProdtutoParcial = async (req:Request, res:Response) => {
+ try{
+  const name = req.params.name
+  if(name === "" || name === undefined || name === null){
+    res.status(400).json({mensagem:"nome do produto vazio"})
+  }
+  const data = await prisma.produto.findMany({
+    where : {
+      titulo : {
+        contains: String(name),
+        mode: "insensitive" 
+      }
+    }
+  })
+  res.status(200).json(data)
+}
+catch{
+  res.status(400).json({msg:"error in /produtos/nome/:nome"})
+}
+}
+
 export const GetProdutosId = async (req: Request, res: Response) => {
+  try{
   const idProduto = req.params.id;
 
   const data = await prisma.produto.findMany({
     where: { id: Number(idProduto) },
   });
   res.status(200).json(data);
+}catch{
+  res.status(400).json({mensagem:"error in /produtos/:id"})
+}
 };
 
 export const UpdateProdutosId = async (req: Request, res: Response) => {

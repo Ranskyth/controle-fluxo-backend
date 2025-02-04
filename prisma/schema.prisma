@@ -24,3 +24,11 @@ model Produto {
   
   @@map("produtos")
 }
+
+model Admin{
+  id String @id
+  email String
+  password String
+
+  @@map("administrador")
+}

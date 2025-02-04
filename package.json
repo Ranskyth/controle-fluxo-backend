@@ -15,6 +15,9 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "prisma":{
+    "seed":"tsx prisma/seed.ts"
+  },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
