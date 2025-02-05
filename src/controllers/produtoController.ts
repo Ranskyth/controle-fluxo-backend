@@ -4,7 +4,7 @@ import { ProdutoModel } from "../models/produtoModel";
 import { GetProdutosAllServices } from "../services/produtoServices";
 
 export const GetProdutosAll = async (req: Request, res: Response) => {
-  const data = await prisma.produto.findMany();
+  const data = await prisma.produto.findMany({orderBy:{id:"asc"}});
 
   const request = GetProdutosAllServices(data);
 
@@ -46,12 +46,12 @@ export const GetProdutosId = async (req: Request, res: Response) => {
 };
 
 export const UpdateProdutosId = async (req: Request, res: Response) => {
-  const IdProduto = req.params.id;
+  const IdProduto = Number(req.body.id)
   const Produto: ProdutoModel = req.body;
 
   try {
     await prisma.produto.update({
-      where: { id: Number(IdProduto) },
+      where: { id: IdProduto },
       data: Produto,
     });
 

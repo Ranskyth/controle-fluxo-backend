@@ -13,22 +13,63 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Movimentacao{
+  entrada
+  deposito
+  saida
+  venda
+}
+
 model Produto {
-  id Int @id @default(autoincrement())
-  titulo String
+  id         Int      @id @default(autoincrement())
+  titulo     String
   quantidade Int
-  preco Float
-  descricao String?
-  createde_at DateTime @default(now())
+  preco      Float
+  descricao  String?
+  created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  
+
+  itens ItensVendidos[]
+
   @@map("produtos")
 }
 
-model Admin{
-  id String @id
-  email String
+model Admin {
+  id       Int    @id
+  email    String @unique
   password String
 
   @@map("administrador")
+}
+
+model Venda {
+  id        Int             @id @default(autoincrement())
+  total     Float
+  createdAt DateTime        @default(now())
+  itens     ItensVendidos[]
+  caixa     Caixa[]
+
+  @@map("venda")
+}
+
+model Caixa {
+  id        Int      @id @default(autoincrement())
+  valor     Float @default(0)
+  descricao String?
+  createdAt DateTime @default(now())
+  venda_id  Int?
+  tipo      Movimentacao
+  venda     Venda?   @relation(fields: [venda_id], references: [id])
+
+  @@map("caixa")
+}
+
+model ItensVendidos {
+  id         Int     @id @default(autoincrement())
+  venda_id   Int
+  venda      Venda   @relation(fields: [venda_id], references: [id])
+  produto_id Int
+  produto    Produto @relation(fields: [produto_id], references: [id])
+
+  @@map("itens_vendidos")
 }

@@ -6,14 +6,13 @@ const PORT = process.env.PORT;
 
 const app = express();
 
-app.use((req: Request, res: Response,next:NextFunction) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type")
+  res.header("Access-Control-Allow-Headers", "Content-Type");
   app.use(cors());
-  next()
+  next();
 });
-
 
 app.use(express.json());
 
