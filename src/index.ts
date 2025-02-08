@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import { routerProdutos } from "./routes/produtosRoutes";
 import cors from "cors";
+import { routerVendas } from "./routes/vendaRoutes";
 
 const PORT = process.env.PORT;
 
@@ -17,7 +18,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use(express.json());
 
 app.use("/api/", routerProdutos);
+app.use("/api/", routerVendas)
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server on in http://localhost:${PORT}/api/`);
 });

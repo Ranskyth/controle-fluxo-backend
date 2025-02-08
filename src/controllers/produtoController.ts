@@ -20,7 +20,7 @@ export const GetProdtutoParcial = async (req:Request, res:Response) => {
   const data = await prisma.produto.findMany({
     where : {
       titulo : {
-        contains: String(name),
+        startsWith: String(name),
         mode: "insensitive" 
       }
     }

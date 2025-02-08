@@ -13,11 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Movimentacao{
-  entrada
-  deposito
-  saida
-  venda
+enum MetodoPagamento {
+  dinheiro
+  cartao_credito
+  cartao_debito
+  pix
 }
 
 model Produto {
@@ -28,8 +28,6 @@ model Produto {
   descricao  String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-
-  itens ItensVendidos[]
 
   @@map("produtos")
 }
@@ -43,33 +41,13 @@ model Admin {
 }
 
 model Venda {
-  id        Int             @id @default(autoincrement())
-  total     Float
-  createdAt DateTime        @default(now())
-  itens     ItensVendidos[]
-  caixa     Caixa[]
+  id         Int             @id @default(autoincrement())
+  total      Float
+  quantidade Int
+  createdAt  DateTime        @default(now())
+  pagamento  MetodoPagamento
 
-  @@map("venda")
+  @@map("vendas")
 }
 
-model Caixa {
-  id        Int      @id @default(autoincrement())
-  valor     Float @default(0)
-  descricao String?
-  createdAt DateTime @default(now())
-  venda_id  Int?
-  tipo      Movimentacao
-  venda     Venda?   @relation(fields: [venda_id], references: [id])
 
-  @@map("caixa")
-}
-
-model ItensVendidos {
-  id         Int     @id @default(autoincrement())
-  venda_id   Int
-  venda      Venda   @relation(fields: [venda_id], references: [id])
-  produto_id Int
-  produto    Produto @relation(fields: [produto_id], references: [id])
-
-  @@map("itens_vendidos")
-}
